@@ -1,0 +1,24 @@
+Ecommerce App
+Tables
+Product
+- id : Long
+- Name : String
+- Description : String
+- Price : Double
+- Quantity: int
+- category: ProductCategory M-M
+- images: ProductImages O-M
+- createdOn: Date
+- updatedOne: Date
+ProductCategory
+- id : Long
+- categoryName: String
+PRODUCT_PRODUCT_CATEGORY
+- productID
+- categoryId
+ProductImages
+- id: Long
+- url: String
+- isPrimary: boolean
+O-M
+- productID
