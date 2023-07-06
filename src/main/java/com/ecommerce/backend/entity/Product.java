@@ -1,5 +1,6 @@
 package com.ecommerce.backend.entity;
 
+import com.ecommerce.backend.dto.ProductCategoryDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,13 +32,13 @@ public class Product {
     @Column(name = "QUANTITY")
     private int quantity;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinTable( name = "PRODUCT_PRODUCT_CATEGORY", joinColumns = {
             @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")},
             inverseJoinColumns = {@JoinColumn(name = "CATEGORY_ID", referencedColumnName = "ID")})
     private Set<ProductCategory> categories = new HashSet<>();
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "PRODUCT_ID")
     private List<ProductImage> productImageList = new ArrayList<>();
 
@@ -48,5 +49,6 @@ public class Product {
     @Column(name = "UPDATED_ON")
     @UpdateTimestamp
     private Date updatedOn;
+
 
 }
