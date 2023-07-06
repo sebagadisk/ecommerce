@@ -31,8 +31,10 @@ public class ProductCategoryServiceImplementation implements ProductCategoryServ
     }
 
     @Override
-    public ProductCategory getById(Long id) {
-        ProductCategory productCategory = productCategoryRepository.findById(id).get();
-        return productCategory;
+    public ProductCategoryDTO getById(Long id) {
+        ProductCategory  productCategory = productCategoryRepository.findById(id).get();
+        ProductCategoryDTO productCategoryData = productCategory.getProductCategoryData(productCategory);
+
+        return productCategoryData;
     }
 }

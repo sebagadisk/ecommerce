@@ -11,6 +11,6 @@ public interface ProductCategoryService {
 
     List<ProductCategory> getAllCategory();
 
-    ProductCategory getById(Long id);
+    ProductCategoryDTO getById(Long id);
 
 }
