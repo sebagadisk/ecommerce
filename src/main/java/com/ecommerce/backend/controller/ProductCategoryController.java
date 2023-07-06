@@ -1,5 +1,6 @@
 package com.ecommerce.backend.controller;
 
+import com.ecommerce.backend.dto.ProductCategoryDTO;
 import com.ecommerce.backend.entity.ProductCategory;
 import com.ecommerce.backend.service.ProductCategoryService;
 import lombok.AllArgsConstructor;
@@ -16,9 +17,9 @@ public class ProductCategoryController {
     private final ProductCategoryService productCategoryService;
 
     @PostMapping("/admin/product-category/save")
-    private ResponseEntity<ProductCategory> saveProductCategory(@RequestBody ProductCategory productCategory) {
-        ProductCategory savedCategory = productCategoryService.saveProductCategory(productCategory);
-        return new ResponseEntity<>(savedCategory, HttpStatus.CREATED);
+    private ResponseEntity<ProductCategoryDTO> saveProductCategory(@RequestBody ProductCategory productCategory) {
+        ProductCategoryDTO productCategoryDTO = productCategoryService.saveProductCategory(productCategory);
+        return new ResponseEntity<>(productCategoryDTO, HttpStatus.CREATED);
     }
 
     @GetMapping("/public/categories")

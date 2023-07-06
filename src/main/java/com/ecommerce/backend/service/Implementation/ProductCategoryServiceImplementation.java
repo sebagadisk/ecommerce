@@ -1,12 +1,12 @@
 package com.ecommerce.backend.service.Implementation;
 
+import com.ecommerce.backend.dto.ProductCategoryDTO;
 import com.ecommerce.backend.entity.ProductCategory;
 import com.ecommerce.backend.repository.ProductCategoryRepository;
 import com.ecommerce.backend.service.ProductCategoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -16,11 +16,12 @@ public class ProductCategoryServiceImplementation implements ProductCategoryServ
     private final ProductCategoryRepository productCategoryRepository;
 
     @Override
-    public ProductCategory saveProductCategory(ProductCategory productCategory) {
+    public ProductCategoryDTO saveProductCategory(ProductCategory productCategory) {
         ProductCategory newProductCategory = new ProductCategory();
         newProductCategory.setCategoryName(productCategory.getCategoryName());
         ProductCategory savedProductCategory = productCategoryRepository.save(newProductCategory);
-        return savedProductCategory;
+        ProductCategoryDTO productCategoryData = savedProductCategory.getProductCategoryData(savedProductCategory);
+        return productCategoryData;
     }
 
     @Override

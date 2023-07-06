@@ -1,5 +1,6 @@
 package com.ecommerce.backend.entity;
 
+import com.ecommerce.backend.dto.ProductCategoryDTO;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -27,5 +28,11 @@ public class ProductCategory {
     @Column(name = "UPDATED_ON")
     @UpdateTimestamp
     private Date updatedOn;
+
+    public ProductCategoryDTO getProductCategoryData(ProductCategory savedCategory) {
+        return ProductCategoryDTO.builder()
+                .id(this.id)
+                .categoryName(this.categoryName).build();
+    }
 
 }
