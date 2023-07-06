@@ -16,7 +16,7 @@ public class ProductDTO {
     private String description;
     private Double price;
     private int quantity;
-    private int categories;
+    private int category;
     private List<ProductImage> productImageList;
     @JsonIgnore
     private Date createdOn;

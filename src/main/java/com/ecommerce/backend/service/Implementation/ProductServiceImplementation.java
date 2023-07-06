@@ -1,6 +1,9 @@
 package com.ecommerce.backend.service.Implementation;
 
+import com.ecommerce.backend.dto.ProductDTO;
 import com.ecommerce.backend.entity.Product;
+import com.ecommerce.backend.entity.ProductCategory;
+import com.ecommerce.backend.repository.ProductCategoryRepository;
 import com.ecommerce.backend.repository.ProductRepository;
 import com.ecommerce.backend.service.ProductService;
 import lombok.AllArgsConstructor;
@@ -8,34 +11,39 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 @Service
 @AllArgsConstructor
 public class ProductServiceImplementation implements ProductService {
 
     private final ProductRepository productRepository;
 
+    private final ProductCategoryRepository productCategoryRepository;
+
     @Override
-    public Product saveProduct(Product product) {
+    public Product saveProduct(ProductDTO productDTO) {
         Product newProduct = new Product();
-        newProduct.setName(product.getName());
-        newProduct.setDescription(product.getDescription());
-        newProduct.setPrice(product.getPrice());
-        newProduct.setQuantity(product.getQuantity());
-        newProduct.setCategories(product.getCategories());
-        newProduct.setProductImageList(product.getProductImageList());
+        newProduct.setName(productDTO.getName());
+        newProduct.setDescription(productDTO.getDescription());
+        newProduct.setPrice(productDTO.getPrice());
+        newProduct.setQuantity(productDTO.getQuantity());
+        Set<ProductCategory> allById = productCategoryRepository.findAllById(productDTO.getCategory());
+        newProduct.setCategories(allById);
+        newProduct.setProductImageList(productDTO.getProductImageList());
         Product savedProduct = productRepository.save(newProduct);
         return savedProduct;
     }
 
     @Override
-    public Product updateProduct(Product product) {
-        Product existingProduct = productRepository.findById(product.getId()).get();
-        existingProduct.setName(product.getName());
-        existingProduct.setDescription(product.getDescription());
-        existingProduct.setPrice(product.getPrice());
-        existingProduct.setQuantity(product.getQuantity());
-        existingProduct.setCategories(product.getCategories());
-        existingProduct.setProductImageList(product.getProductImageList());
+    public Product updateProduct(ProductDTO productDTO) {
+        Product existingProduct = productRepository.findById(productDTO.getId()).get();
+        existingProduct.setName(productDTO.getName());
+        existingProduct.setDescription(productDTO.getDescription());
+        existingProduct.setPrice(productDTO.getPrice());
+        existingProduct.setQuantity(productDTO.getQuantity());
+//        existingProduct.setCategories(productDTO.getCategories());
+        existingProduct.setProductImageList(productDTO.getProductImageList());
         Product updatedProduct = productRepository.save(existingProduct);
         return updatedProduct;
     }

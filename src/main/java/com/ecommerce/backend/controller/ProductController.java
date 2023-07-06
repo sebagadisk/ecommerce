@@ -1,5 +1,6 @@
 package com.ecommerce.backend.controller;
 
+import com.ecommerce.backend.dto.ProductDTO;
 import com.ecommerce.backend.entity.Product;
 import com.ecommerce.backend.service.ProductService;
 import lombok.AllArgsConstructor;
@@ -16,12 +17,12 @@ public class ProductController {
    private final ProductService productService;
 
    @PostMapping("/user/product")
-    private ResponseEntity<Product> saveOrUpdate(@RequestBody Product productRequest){
+    private ResponseEntity<Product> saveOrUpdate(@RequestBody ProductDTO productDTO){
        Product product = null;
-       if(productRequest.getId() == null){
-           product = productService.saveProduct(productRequest);
+       if(productDTO.getId() == null){
+           product = productService.saveProduct(productDTO);
        }else{
-           product = productService.updateProduct(productRequest);
+           product = productService.updateProduct(productDTO);
        }
        return  new ResponseEntity<>(product, HttpStatus.OK);
    }

@@ -32,7 +32,8 @@ public class ProductCategory {
     public ProductCategoryDTO getProductCategoryData(ProductCategory savedCategory) {
         return ProductCategoryDTO.builder()
                 .id(this.id)
-                .categoryName(this.categoryName).build();
+                .categoryName(this.categoryName)
+                .createOn(this.createdOn).build();
     }
 
 }
