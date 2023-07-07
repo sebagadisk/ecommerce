@@ -1,6 +1,7 @@
 package com.ecommerce.backend.entity;
 
 import com.ecommerce.backend.dto.ProductCategoryDTO;
+import com.ecommerce.backend.dto.ProductDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -49,6 +50,18 @@ public class Product {
     @Column(name = "UPDATED_ON")
     @UpdateTimestamp
     private Date updatedOn;
+
+    public ProductDTO getProductData(Product product){
+        return ProductDTO.builder()
+                .id(this.id)
+                .name(this.name)
+                .description(this.description)
+                .price(this.price)
+                .quantity(this.quantity)
+                .productImageList(this.productImageList)
+                .createdOn(this.createdOn).build();
+
+    }
 
 
 }

@@ -1,5 +1,6 @@
 package com.ecommerce.backend.entity;
 
+import com.ecommerce.backend.dto.ProductImageDTO;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,5 +17,11 @@ public class ProductImage {
     private String url;
 
     private boolean isPrimary;
+
+    public ProductImageDTO getProductData(ProductImage productImage){
+        return ProductImageDTO.builder()
+                .url(this.url)
+                .build();
+    }
 
 }

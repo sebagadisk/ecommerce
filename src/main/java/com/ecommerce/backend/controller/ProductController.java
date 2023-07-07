@@ -4,11 +4,11 @@ import com.ecommerce.backend.dto.ProductDTO;
 import com.ecommerce.backend.entity.Product;
 import com.ecommerce.backend.service.ProductService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
@@ -25,6 +25,16 @@ public class ProductController {
            product = productService.updateProduct(productDTO);
        }
        return  new ResponseEntity<>(product, HttpStatus.OK);
+   }
+   @GetMapping("/public/products")
+    private ResponseEntity<Page<Product>> getAllProductPageable(Pageable pageable){
+       Page<Product> allProductPageable = productService.getAllProductPageable(pageable);
+       return new ResponseEntity<>(allProductPageable, HttpStatus.OK);
+   }
+   @GetMapping("/public/product")
+    private ResponseEntity<ProductDTO> getProductById(@RequestParam("id") Long id){
+       ProductDTO productDTObyId = productService.getById(id);
+       return new ResponseEntity<>(productDTObyId, HttpStatus.OK);
    }
 
 }

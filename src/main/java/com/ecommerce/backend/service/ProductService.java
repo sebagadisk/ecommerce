@@ -13,6 +13,6 @@ public interface ProductService {
 
     Page<Product> getAllProductPageable(Pageable pageable);
 
-    Product getById(Long id);
+    ProductDTO getById(Long id);
 
 }
