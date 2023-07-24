@@ -2,6 +2,7 @@ package com.ecommerce.backend.service.Implementation;
 
 import com.ecommerce.backend.dto.ProductCategoryDTO;
 import com.ecommerce.backend.entity.ProductCategory;
+import com.ecommerce.backend.exception.BadRequestException;
 import com.ecommerce.backend.repository.ProductCategoryRepository;
 import com.ecommerce.backend.service.ProductCategoryService;
 import lombok.AllArgsConstructor;
@@ -32,7 +33,7 @@ public class ProductCategoryServiceImplementation implements ProductCategoryServ
 
     @Override
     public ProductCategoryDTO getById(Long id) {
-        ProductCategory  productCategory = productCategoryRepository.findById(id).get();
+        ProductCategory  productCategory = productCategoryRepository.findById(id).orElseThrow(()-> new BadRequestException("id = " + id + " not found" ));
         ProductCategoryDTO productCategoryData = productCategory.getProductCategoryData(productCategory);
 
         return productCategoryData;

@@ -19,19 +19,25 @@ public class ProductCategoryController {
     private final ProductCategoryService productCategoryService;
 
     @PostMapping("/admin/product-category/save")
-    @Operation(summary = "Save Category", description = "", tags = "ADMIN APIs")
+    @Operation(summary = "Save Category", description = "this api will take product category as request body " +
+            "and return product category details", tags = "ADMIN APIs")
     private ResponseEntity<ProductCategoryDTO> saveProductCategory(@RequestBody ProductCategory productCategory) {
         ProductCategoryDTO productCategoryDTO = productCategoryService.saveProductCategory(productCategory);
         return new ResponseEntity<>(productCategoryDTO, HttpStatus.CREATED);
     }
 
+
     @GetMapping("/public/categories")
+    @Operation(summary = "get all category", description = "this api will get all category from db "
+            , tags = "PUBLIC APIs")
     private ResponseEntity<List<ProductCategory>> getAllCategory() {
         List<ProductCategory> allCategory = productCategoryService.getAllCategory();
         return new ResponseEntity<>(allCategory, HttpStatus.OK);
     }
 
     @GetMapping("/public/category/{id}")
+    @Operation(summary = "get category by id", description = "this api will get category by id from db "
+            , tags = "PUBLIC APIs")
     private ResponseEntity<ProductCategoryDTO> showCategoryById(@PathVariable("id") Long id) {
         ProductCategoryDTO getById = productCategoryService.getById(id);
         return new ResponseEntity<>(getById, HttpStatus.OK);

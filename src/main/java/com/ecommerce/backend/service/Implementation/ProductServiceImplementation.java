@@ -3,6 +3,7 @@ package com.ecommerce.backend.service.Implementation;
 import com.ecommerce.backend.dto.ProductDTO;
 import com.ecommerce.backend.entity.Product;
 import com.ecommerce.backend.entity.ProductCategory;
+import com.ecommerce.backend.exception.BadRequestException;
 import com.ecommerce.backend.repository.ProductCategoryRepository;
 import com.ecommerce.backend.repository.ProductRepository;
 import com.ecommerce.backend.service.ProductService;
@@ -56,7 +57,7 @@ public class ProductServiceImplementation implements ProductService {
 
     @Override
     public ProductDTO getById(Long id) {
-        Product productDetail = productRepository.findById(id).get();
+        Product productDetail = productRepository.findById(id).orElseThrow(()->new BadRequestException("id = " + id + " not found"));
         ProductDTO convertToProductDTO = productDetail.getProductData(productDetail);
         return convertToProductDTO;
     }

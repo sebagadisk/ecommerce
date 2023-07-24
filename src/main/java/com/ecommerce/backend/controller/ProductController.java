@@ -3,6 +3,7 @@ package com.ecommerce.backend.controller;
 import com.ecommerce.backend.dto.ProductDTO;
 import com.ecommerce.backend.entity.Product;
 import com.ecommerce.backend.service.ProductService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +19,8 @@ public class ProductController {
    private final ProductService productService;
 
    @PostMapping("/user/product")
+   @Operation(summary = "save product ", description = "this api will take productdto as a requestbody and return " +
+           "product", tags = "USER APIs")
     private ResponseEntity<Product> saveOrUpdate(@RequestBody ProductDTO productDTO){
        Product product = null;
        if(productDTO.getId() == null){
@@ -28,11 +31,15 @@ public class ProductController {
        return  new ResponseEntity<>(product, HttpStatus.OK);
    }
    @GetMapping("/public/products")
+   @Operation(summary = "get all products ", description = "this api will give us all products"
+           , tags = "PUBLIC APIs")
     private ResponseEntity<Page<Product>> getAllProductPageable(Pageable pageable){
        Page<Product> allProductPageable = productService.getAllProductPageable(pageable);
        return new ResponseEntity<>(allProductPageable, HttpStatus.OK);
    }
    @GetMapping("/public/product/{id}")
+   @Operation(summary = "get product by id ", description = "this api will give us product by id"
+           , tags = "PUBLIC APIs")
     private ResponseEntity<ProductDTO> getProductById(@PathVariable Long id){
        ProductDTO productDTObyId = productService.getById(id);
        return new ResponseEntity<>(productDTObyId, HttpStatus.OK);
