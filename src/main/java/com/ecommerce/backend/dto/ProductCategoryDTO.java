@@ -11,5 +11,5 @@ import java.util.Date;
 public class ProductCategoryDTO {
     private Long id;
     private String categoryName;
-    private Date createOn;
+    private Date createdOn;
 }

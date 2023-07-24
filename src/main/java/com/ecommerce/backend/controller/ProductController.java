@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class ProductController {
 
    private final ProductService productService;
@@ -31,8 +32,8 @@ public class ProductController {
        Page<Product> allProductPageable = productService.getAllProductPageable(pageable);
        return new ResponseEntity<>(allProductPageable, HttpStatus.OK);
    }
-   @GetMapping("/public/product")
-    private ResponseEntity<ProductDTO> getProductById(@RequestParam("id") Long id){
+   @GetMapping("/public/product/{id}")
+    private ResponseEntity<ProductDTO> getProductById(@PathVariable Long id){
        ProductDTO productDTObyId = productService.getById(id);
        return new ResponseEntity<>(productDTObyId, HttpStatus.OK);
    }

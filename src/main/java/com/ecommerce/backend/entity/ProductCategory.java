@@ -33,7 +33,7 @@ public class ProductCategory {
         return ProductCategoryDTO.builder()
                 .id(this.id)
                 .categoryName(this.categoryName)
-                .createOn(this.createdOn).build();
+                .createdOn(this.createdOn).build();
     }
 
 }
