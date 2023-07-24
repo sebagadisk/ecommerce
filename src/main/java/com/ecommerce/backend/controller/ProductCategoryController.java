@@ -3,6 +3,7 @@ package com.ecommerce.backend.controller;
 import com.ecommerce.backend.dto.ProductCategoryDTO;
 import com.ecommerce.backend.entity.ProductCategory;
 import com.ecommerce.backend.service.ProductCategoryService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ public class ProductCategoryController {
     private final ProductCategoryService productCategoryService;
 
     @PostMapping("/admin/product-category/save")
+    @Operation(summary = "Save Category", description = "", tags = "ADMIN APIs")
     private ResponseEntity<ProductCategoryDTO> saveProductCategory(@RequestBody ProductCategory productCategory) {
         ProductCategoryDTO productCategoryDTO = productCategoryService.saveProductCategory(productCategory);
         return new ResponseEntity<>(productCategoryDTO, HttpStatus.CREATED);
