@@ -67,4 +67,11 @@ public class ProductServiceImplementation implements ProductService {
         productRepository.findById(id).orElseThrow(()-> new BadRequestException("id" + id + "not found"));
         productRepository.deleteById(id);
     }
+
+    @Override
+    public Page<Product> searchProductByKeyWord(String keyword, Pageable pageable) {
+        Page<Product> products = productRepository.searchProductByKeyWord(keyword, pageable);
+
+        return products;
+    }
 }

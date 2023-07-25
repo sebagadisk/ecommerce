@@ -31,13 +31,21 @@ public class ProductController {
        }
        return  new ResponseEntity<>(product, HttpStatus.OK);
    }
-   @GetMapping("/public/products")
-   @Operation(summary = "get all products ", description = "this api will give us all products"
-           , tags = "PUBLIC APIs")
-    private ResponseEntity<Page<Product>> getAllProductPageable(Pageable pageable){
-       Page<Product> allProductPageable = productService.getAllProductPageable(pageable);
-       return new ResponseEntity<>(allProductPageable, HttpStatus.OK);
-   }
+//   @GetMapping("/public/products")
+//   @Operation(summary = "get all products ", description = "this api will give us all products"
+//           , tags = "PUBLIC APIs")
+//    private ResponseEntity<Page<Product>> getAllProductPageable(Pageable pageable){
+//       Page<Product> allProductPageable = productService.getAllProductPageable(pageable);
+//       return new ResponseEntity<>(allProductPageable, HttpStatus.OK);
+//   }
+
+    @GetMapping("/public/products")
+    @Operation(summary = "get product by key word", description = "this api will give us product by key word"
+            , tags = "PUBLIC APIs")
+    private ResponseEntity<Page<Product>> getProductByKeyWord(@RequestParam(defaultValue = "") String keyword, Pageable pageable){
+        Page<Product> allProductPageable = productService.searchProductByKeyWord(keyword,pageable);
+        return new ResponseEntity<>(allProductPageable, HttpStatus.OK);
+    }
    @GetMapping("/public/product/{id}")
    @Operation(summary = "get product by id ", description = "this api will give us product by id"
            , tags = "PUBLIC APIs")

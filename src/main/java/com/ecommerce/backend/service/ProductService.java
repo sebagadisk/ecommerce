@@ -15,5 +15,6 @@ public interface ProductService {
 
     ProductDTO getById(Long id);
     void deleteProductById(Long id);
+    Page<Product> searchProductByKeyWord(String keyword, Pageable pageable);
 
 }
