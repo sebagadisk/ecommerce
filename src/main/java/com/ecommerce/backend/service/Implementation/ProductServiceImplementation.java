@@ -61,4 +61,10 @@ public class ProductServiceImplementation implements ProductService {
         ProductDTO convertToProductDTO = productDetail.getProductData(productDetail);
         return convertToProductDTO;
     }
+
+    @Override
+    public void deleteProductById(Long id) {
+        productRepository.findById(id).orElseThrow(()-> new BadRequestException("id" + id + "not found"));
+        productRepository.deleteById(id);
+    }
 }

@@ -5,6 +5,7 @@ import com.ecommerce.backend.entity.Product;
 import com.ecommerce.backend.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -44,5 +45,19 @@ public class ProductController {
        ProductDTO productDTObyId = productService.getById(id);
        return new ResponseEntity<>(productDTObyId, HttpStatus.OK);
    }
+
+    @GetMapping("/user/product/{id}/delete")
+    @Operation(summary = "delete product by id", description = "this api will delete product by id from db" ,
+            tags = "USER APIs")
+    private ResponseEntity<?> deleteProductById(@PathVariable("id") Long id){
+        try{
+            productService.deleteProductById(id);
+            return ResponseEntity.noContent().build();
+        }catch (EmptyResultDataAccessException ex){
+            return ResponseEntity.notFound().build();
+
+        }
+
+    }
 
 }

@@ -38,4 +38,10 @@ public class ProductCategoryServiceImplementation implements ProductCategoryServ
 
         return productCategoryData;
     }
+
+    @Override
+    public void deleteById(Long id) {
+      ProductCategory productCategory=  productCategoryRepository.findById(id).orElseThrow(() -> new BadRequestException("id" + id + "not found"));
+        productCategoryRepository.deleteById(productCategory.getId());
+    }
 }

@@ -7,6 +7,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Entity
@@ -21,6 +23,8 @@ public class ProductCategory {
     @Column(name = "CATEGORY_NAME")
     private String categoryName;
 
+//    @ManyToMany(mappedBy = "categories", cascade = CascadeType.DETACH)
+//    private Set<Product> products = new HashSet<>();
     @Column(name = "CREATED_ON")
     @CreationTimestamp
     private Date createdOn;

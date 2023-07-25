@@ -13,9 +13,8 @@ public interface ProductCategoryService {
 
     ProductCategoryDTO getById(Long id);
 
-//    void deleteById(Long id){
-//
-//    }
+    void deleteById(Long id);
+
 
 
 }

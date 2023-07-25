@@ -5,6 +5,7 @@ import com.ecommerce.backend.entity.ProductCategory;
 import com.ecommerce.backend.service.ProductCategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -42,4 +43,18 @@ public class ProductCategoryController {
         ProductCategoryDTO getById = productCategoryService.getById(id);
         return new ResponseEntity<>(getById, HttpStatus.OK);
     }
+
+    @GetMapping("/admin/category/{id}/delete")
+    @Operation(summary = "delete category by id", description = "this api will delete category by id from db" ,
+                tags = "ADMIN APIs")
+    private ResponseEntity<?> deleteCategoryById(@PathVariable("id") Long id){
+        try{
+        productCategoryService.deleteById(id);
+        return ResponseEntity.noContent().build();
+        }catch (EmptyResultDataAccessException ex){
+            return ResponseEntity.notFound().build();
+
+        }
+
+}
 }

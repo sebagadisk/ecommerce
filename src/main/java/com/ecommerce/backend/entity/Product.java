@@ -33,7 +33,7 @@ public class Product {
     @Column(name = "QUANTITY")
     private int quantity;
 
-    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.DETACH,fetch = FetchType.EAGER)
     @JoinTable( name = "PRODUCT_PRODUCT_CATEGORY", joinColumns = {
             @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")},
             inverseJoinColumns = {@JoinColumn(name = "CATEGORY_ID", referencedColumnName = "ID")})
@@ -61,6 +61,9 @@ public class Product {
                 .productImageList(this.productImageList)
                 .createdOn(this.createdOn).build();
 
+    }
+    public void removeCategories(Set<ProductCategory> productCategories){
+      this.categories.removeAll(productCategories);
     }
 
 
